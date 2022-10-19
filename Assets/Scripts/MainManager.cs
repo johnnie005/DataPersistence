@@ -59,7 +59,7 @@ public class MainManager : MonoBehaviour
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
-        }
+        }//restarts game 
     }
 
     void AddPoint(int point)
@@ -72,5 +72,5 @@ public class MainManager : MonoBehaviour
     {
         m_GameOver = true;
         GameOverText.SetActive(true);
-    }
+    }//brings up game over 
 }
