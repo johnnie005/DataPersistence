@@ -9,19 +9,19 @@ public class MainManager : MonoBehaviour
     public Brick BrickPrefab;
     public int LineCount = 6;
     public Rigidbody Ball;
-
     public Text ScoreText;
     public GameObject GameOverText;
-    
     private bool m_Started = false;
     private int m_Points;
-    
     private bool m_GameOver = false;
+    private string pl_nm;//player name
+    
 
     
     // Start is called before the first frame update
     void Start()
     {
+        
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
         
@@ -36,10 +36,13 @@ public class MainManager : MonoBehaviour
                 brick.onDestroyed.AddListener(AddPoint);
             }
         }
+        Manager.Instance.LoadName();
+        pl_nm = Manager.Instance.player_name;
     }
 
     private void Update()
     {
+        ScoreText.text = pl_nm + " Best " + $"Score : {m_Points}";
         if (!m_Started)
         {
             if (Input.GetKeyDown(KeyCode.Space))
@@ -59,18 +62,24 @@ public class MainManager : MonoBehaviour
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
+          
         }//restarts game 
     }
 
     void AddPoint(int point)
     {
+     //   pl_nm = DisplayName.Instance.nam.text;
         m_Points += point;
-        ScoreText.text = $"Score : {m_Points}";
+      //  Manager.Instance.HighScore(m_Points); 
+        ScoreText.text = pl_nm +" Best " + $"Score : {m_Points}";
     }
 
     public void GameOver()
     {
+        
+      //  Manager.Instance.SaveScore(m_Points);
         m_GameOver = true;
         GameOverText.SetActive(true);
+      
     }//brings up game over 
 }
